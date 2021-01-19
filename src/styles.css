@@ -1,0 +1,141 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  transition: 0.2s ease-in all;
+}
+
+body {
+  width: 100%;
+  height: 100%;
+}
+
+.App {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  /* display: relative; */
+}
+
+.canvasField {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 1rem;
+}
+
+canvas {
+  border: 1px solid #ff6a6ab9;
+  border-radius: 10px;
+  box-shadow: 0px 0px 12px 1px #ccc;
+}
+
+.toolSection {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.toolField {
+  width: 80%;
+  text-align: center;
+  display: flex;
+  justify-content: space-evenly;
+  justify-content: center;
+  align-items: center;
+  background: rgba(238, 238, 238, 0.5);
+  border-radius: 20px;
+  margin-top: 0.5rem;
+}
+
+.brushWidth {
+  /* border: 1px solid yellowgreen; */
+  display: flex;
+  align-items: center;
+  padding: 0.5rem 1rem;
+}
+
+.paintBrushIcon {
+  width: 25px;
+  height: 25px;
+  margin: 5px 7px;
+}
+
+.colorsets {
+  /* border: 1px solid red; */
+  display: flex;
+  padding: 0.5rem 1rem;
+}
+
+.colorsets > div {
+  width: 20px;
+  height: 20px;
+  border-radius: 10px;
+  background: transparent;
+  margin: 5px;
+  cursor: pointer;
+  position: relative;
+}
+
+.colorsets > div:hover {
+  transform: scale(1.2);
+}
+
+
+.icon {
+  box-shadow: 0px 0px 12px 1px #ccc;
+  border-radius: 10px;
+  margin-right: 10px;
+  cursor: pointer;
+}
+.icon:hover {
+  transform: scale(1.1);
+  box-shadow: -0.5px 1px 4px 3px rgb(0, 0, 0);
+}
+.eraser {
+  /* border: 1px solid black; */
+  display: flex;
+  padding: 0.5rem 1rem;
+}
+
+.eraserIcon {
+  width: 25px;
+  height: 25px;
+
+  margin: 5px 7px;
+}
+
+.eraser .eraserTip {
+  width: 20px;
+  height: 20px;
+  border-radius: 10px;
+  background: transparent;
+  margin: 2px;
+  cursor: pointer;
+}
+
+.deleteBtn {
+  width: 25px;
+  height: 25px;
+  margin: 5px 7px;
+}
+
+.shapesMenuField {
+  display: flex;
+  justify-content: space-between;
+  margin: 0 1rem;
+}
+
+.circleShape,
+.triangleShape,
+.squareShape {
+  width: 25px;
+  height: 25px;
+  margin: 5px 7px;
+}
+
+@media (max-width: 768px) {
+  .toolField {
+    width: 100%;
+  }
+}

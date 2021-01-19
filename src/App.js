@@ -1,23 +1,242 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect, useState } from "react";
+import "./styles.css";
 
+import { fabric } from "fabric";
+import paintbrush from "./Icons/paintbrush.png";
+import eraser from "./Icons/eraser.png";
+import dustbin from "./Icons/dustbin.png";
+import square from "./Icons/square.png";
+import triangle from "./Icons/triangle.png";
+import circle from "./Icons/circle.png";
+
+//initializing canvas variable
+let canvas;
+let arr = [];
 function App() {
+  const [brushSize, setBrushSize] = useState(5);
+  const [brushColor, setBrushColor] = useState("#5DADE2");
+  const [eraserSize, setEraserSize] = useState(10);
+  const [strokeColor, setStrokeColor] = useState("#000");
+
+  useEffect(() => {
+    canvas = new fabric.Canvas("canvas");
+    canvas.isDrawingMode = true;
+    canvas.freeDrawingBrush.color = brushColor;
+    canvas.setHeight(window.innerHeight - 100);
+    canvas.setWidth(window.innerWidth - 50);
+    canvas.freeDrawingBrush.width = brushSize;
+  }, []);
+
+  useEffect(() => {
+    canvas.freeDrawingBrush.width = brushSize;
+  }, [brushSize]);
+
+  useEffect(() => {
+    canvas.freeDrawingBrush.color = brushColor;
+  }, [brushColor]);
+
+  useEffect(() => {
+    canvas.freeDrawingBrush.width = eraserSize;
+  }, [eraserSize]);
+
+  //function to change brush size
+  const handleChange = (e) => {
+    setBrushSize(e.target.value);
+  };
+
+  //function to generate different shapes
+  const generateShape = (e) => {
+    let elementClassName = e.target.classList;
+    canvas.isDrawingMode = false;
+    const strokeWidth = 2;
+
+    if (elementClassName == "squareShape") {
+      const rect = new fabric.Rect({
+        left: 100,
+        top: 100,
+        fill: "transparent",
+        width: 60,
+        height: 60,
+        angle: 90,
+        stroke: strokeColor,
+        strokeWidth,
+      });
+      canvas.add(rect);
+    } else if (elementClassName == "triangleShape") {
+      const rect = new fabric.Triangle({
+        left: 200,
+        top: 150,
+        fill: "transparent",
+        width: 60,
+        height: 60,
+        stroke: strokeColor,
+        strokeWidth,
+      });
+      canvas.add(rect);
+    } else if (elementClassName == "circleShape") {
+      const rect = new fabric.Circle({
+        left: 100,
+        top: 100,
+        radius: 50,
+        stroke: strokeColor,
+        strokeWidth,
+        fill: "transparent",
+      });
+      canvas.add(rect);
+    } else {
+      return;
+    }
+  };
+
+  //function to clear canvas or delete the selected shapes
+  const deleteObjects = () => {
+    const activeObjects = canvas.getActiveObjects();
+
+    if (activeObjects.length === 0) {
+      canvas.clear();
+      return;
+    } else if (activeObjects.length) {
+      activeObjects.forEach((object) => {
+        canvas.remove(object);
+      });
+    }
+  };
+
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div className="toolSection">
+        <div className="toolField">
+          <div className="brushWidth">
+            <div className="icon">
+              <img
+                src={paintbrush}
+                alt="paintbrush-icon"
+                className="paintBrushIcon"
+                onClick={() => {
+                  setBrushColor("#5DADE2");
+                  canvas.isDrawingMode = true;
+                }}
+              />
+            </div>
+            <input
+              type="range"
+              min="1"
+              max="50"
+              step="5"
+              value={brushSize}
+              className="slider"
+              onChange={handleChange}
+            ></input>
+          </div>
+
+          <div className="colorsets">
+            <div
+              className="blue"
+              style={{ background: "#5DADE2" }}
+              onClick={() => {
+                setBrushColor("#5DADE2");
+                setStrokeColor("#5DADE2");
+              }}
+            ></div>
+            <div
+              className="red "
+              style={{ background: "#E74C3C" }}
+              onClick={() => {
+                setBrushColor("#E74C3C");
+                setStrokeColor("#E74C3C");
+              }}
+            ></div>
+            <div
+              className="yellow "
+              style={{ background: "#F1C40F" }}
+              onClick={() => {
+                setBrushColor("#F1C40F");
+                setStrokeColor("#F1C40F");
+              }}
+            ></div>
+            <div
+              className="green "
+              style={{ background: "#239B56" }}
+              onClick={() => {
+                setBrushColor("#239B56");
+                setStrokeColor("#239B56");
+              }}
+            ></div>
+            <div
+              className="black "
+              style={{ background: "#17202A" }}
+              onClick={() => {
+                setBrushColor("#17202A");
+                setStrokeColor("#239B56");
+              }}
+            ></div>
+          </div>
+
+          <div className="eraser">
+            <div className="icon">
+              <img
+                src={eraser}
+                alt="eraser-icon"
+                className="eraserIcon"
+                onClick={(e) => {
+                  setBrushColor("#FFFFFF");
+                }}
+              />
+            </div>
+            <input
+              type="range"
+              min="1"
+              max="100"
+              step="10"
+              value={eraserSize}
+              className="slider"
+              onChange={(e) => setEraserSize(e.target.value)}
+            ></input>
+          </div>
+
+          <div className="deleteField">
+            <div className="icon" onClick={deleteObjects}>
+              <img src={dustbin} alt="delete-icon" className="deleteBtn" />
+            </div>
+          </div>
+
+          <div class="new" onClick={createNewPage}>
+            New page
+          </div>
+
+          <div className="shapesMenuField">
+            <div className="icon square">
+              <img
+                src={square}
+                alt="square-icon"
+                className="squareShape"
+                onClick={(e) => generateShape(e)}
+              />
+            </div>
+            <div className="icon">
+              <img
+                src={triangle}
+                alt="triangle-icon"
+                className="triangleShape"
+                onClick={(e) => generateShape(e)}
+              />
+            </div>
+            <div className="icon">
+              <img
+                src={circle}
+                alt="circle-icon"
+                className="circleShape"
+                onClick={(e) => generateShape(e)}
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="canvasField">
+        <canvas id="canvas" />
+      </div>
     </div>
   );
 }
