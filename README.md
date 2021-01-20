@@ -28,7 +28,7 @@
 - In the 2nd chrome window, you can see that the same content of 1st windows is being displayed 
 - Now both screen's are synced at the same time. Have fun scribbling !
 
-![](screenshot.png)
+![](screenshot/screenshot.png)
 
 ### Installation guide
 
