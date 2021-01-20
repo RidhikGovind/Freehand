@@ -15,6 +15,21 @@
 * React.js
 * Firebase
 
+
+## Try it live here: https://freehand-e8cc2.firebaseapp.com/
+
+
+### How to test "Freehand" app
+
+- Open the live demo website seen above in "Two separete chrome windows" (Press Ctrl + N twice in chrome)
+- Bring the two chrome windows side by side so that each windows content is visible
+- Hit refresh( or F5) on both windows to make it responsive to the current screen size
+- In the 1st chrome window, draw something on the canvas
+- In the 2nd chrome window, press "load" button to load the stored canvas content from firebase database and display it. 
+- Now both screen's are synced at the same time. Have fun scribbling !
+
+![](screenshot.png)
+
 ### Installation guide
 
 1. `npm i` - to install dependencies
@@ -27,12 +42,11 @@ import firebase from "firebase";
 
 
 
-
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 
 export const db = firebase.firestore();
 
 ```
-4. In the given space above, copy the firebase and paste the config details of your firebase app.
+4. In the given space above, copy and paste the config details of your firebase app.
 5. `npm start` - to view React app in the browser

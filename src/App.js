@@ -23,8 +23,8 @@ function App() {
   const [strokeColor, setStrokeColor] = useState("#000");
   const [JSONData, setJSONData] = useState("");
 
-  //creating a firestore reference 
- const ref = db.collection("canvasData").doc("JSONData");
+  //creating a firestore reference
+  const ref = db.collection("canvasData").doc("JSONData");
 
   useEffect(() => {
     canvas = new fabric.Canvas("canvas");
@@ -33,6 +33,24 @@ function App() {
     canvas.setHeight(window.innerHeight - 100);
     canvas.setWidth(window.innerWidth - 50);
     canvas.freeDrawingBrush.width = brushSize;
+
+    canvas.on("mouse:up", () => {
+
+      console.log("loaded");
+
+      setJSONData(JSON.stringify(canvas));
+
+      ref.set({
+        data: JSONData,
+      });
+
+      ref.onSnapshot((snap) => {
+        const JSONFirebase = snap.data().data;
+        canvas.loadFromJSON(JSONFirebase, canvas.renderAll.bind(canvas));
+      });
+
+    });
+
   }, []);
 
   useEffect(() => {
@@ -100,7 +118,7 @@ function App() {
     }
   };
 
-  //function to clear canvas or delete the selected shapes
+  // function to clear canvas or delete the selected shapes
   const deleteObjects = () => {
     const activeObjects = canvas.getActiveObjects();
 
@@ -126,9 +144,8 @@ function App() {
     canvas.isDrawingMode = false;
   };
 
-  //function to upload JSON data from firestore
+  // function to upload JSON data from firestore
   const saveData = () => {
-    // console.log(JSON.stringify(canvas))
     setJSONData(JSON.stringify(canvas));
     ref.set({
       data: JSONData,
@@ -136,10 +153,9 @@ function App() {
     console.log("JSONData saved to Firestore");
   };
 
-  //function to load JSON data from firestore
+  // function to load JSON data from firestore
   const loadData = () => {
     ref.onSnapshot((snap) => {
-      // console.log(snap.data().data);
       const JSONFirebase = snap.data().data;
       canvas.loadFromJSON(JSONFirebase, canvas.renderAll.bind(canvas));
     });
@@ -153,6 +169,7 @@ function App() {
     canvas.clear();
   };
 
+  //function to download the canvas content as jpeg
   const download = () => {
     var dataURL = canvas.toDataURL({
       format: "jpeg",
@@ -301,12 +318,14 @@ function App() {
               />
             </div>
           </div>
+
           <div className="save icon" onClick={saveData}>
             Save
           </div>
           <div className="load icon" onClick={loadData}>
             Load
           </div>
+
           <div className="clearSaved icon" onClick={clearSaved}>
             Clear Saved
           </div>
