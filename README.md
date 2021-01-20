@@ -14,7 +14,8 @@
 * HTML 
 * CSS 
 * React.js
-* Firebase
+* Firebase Firestore
+* Firebase Hosting
 
 
 ## Try it live here: https://freehand-e8cc2.firebaseapp.com/
