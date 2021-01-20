@@ -3,12 +3,14 @@
 ![](screenshot/screenshot.png)
 
 ### Features: 
+- Collaborate with another person in 'real-time' - What you see on one screen is what you see on the other screen simultaneously.
 - Brush with assorted color options
 - Create Text boxes 
 - Create Shapes 
 - Download the Canvas content with one-click
 - Desktop and Tablet screen responsiveness
-- Canvas content can be saved, loaded and can be deleted from Firestore Firebase Database.
+- Can clear the Canvas data from the database by using the 'clear canvas' button.
+
 
 ### Tech stack
 * HTML 
@@ -28,7 +30,7 @@
 - Hit refresh( or F5) on both windows to make it responsive to the current screen size
 - In the 1st chrome window, draw something on the canvas
 - In the 2nd chrome window, you can see that the same content of 1st windows is being displayed (if the content is not being display at first Press "Load" Button)
-- Now both screen's are synced at the same time. Have fun scribbling !
+- Now both screen's are synced at the same time. Happy scribbling!
 
 
 

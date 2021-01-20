@@ -61,9 +61,9 @@ function App() {
     canvas.freeDrawingBrush.width = eraserSize;
   }, [eraserSize]);
 
-  // useEffect(() => {
-  //   saveData();
-  // }, [JSONData]);
+  useEffect(() => {
+    saveData();
+  }, [JSONData]);
 
   //function to change brush size
   const handleBrushSizeChange = (e) => {
@@ -141,13 +141,13 @@ function App() {
   };
 
   // function to upload JSON data from firestore
-  // const saveData = () => {
-  //   setJSONData(JSON.stringify(canvas));
-  //   ref.set({
-  //     data: JSONData,
-  //   });
-  //   console.log("JSONData saved to Firestore");
-  // };
+  const saveData = () => {
+    setJSONData(JSON.stringify(canvas));
+    ref.set({
+      data: JSONData,
+    });
+    console.log("JSONData saved to Firestore");
+  };
 
   // function to load JSON data from firestore
   const loadData = () => {
@@ -315,9 +315,7 @@ function App() {
             </div>
           </div>
 
-          {/* <div className="save icon" onClick={saveData}>
-            Save
-          </div> */}
+          
           <div className="load icon" onClick={loadData}>
             Load
           </div>
