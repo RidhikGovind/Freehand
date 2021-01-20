@@ -15,7 +15,24 @@
 * React.js
 * Firebase
 
-### How to install 
+### Installation guide
 
 1. `npm i` - to install dependencies
-2. `npm start` - to view React app in the browser
+2. create a `firebase.js` file inside 'src' folder
+3. Copy the following code into `firebase.js` file  
+```
+import firebase from "firebase";
+
+//********COPY AND PASTE FIREBASE CONFIG FILE BELOW**********
+
+
+
+
+// Initialize Firebase
+firebase.initializeApp(firebaseConfig);
+
+export const db = firebase.firestore();
+
+```
+4. In the given space above, copy the firebase and paste the config details of your firebase app.
+5. `npm start` - to view React app in the browser

@@ -150,6 +150,7 @@ function App() {
     ref.update({
       data: firebase.firestore.FieldValue.delete(),
     });
+    canvas.clear();
   };
 
   const download = () => {
