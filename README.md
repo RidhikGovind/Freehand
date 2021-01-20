@@ -1,5 +1,5 @@
 # Freehand
-### An interactive whiteboard made with Fabric.js.   
+### An collaborative whiteboard made with Fabric.js.   
 ![](screenshot/screenshot.png)
 
 ### Features: 
