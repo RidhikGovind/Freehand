@@ -8,10 +8,12 @@ import dustbin from "./Icons/dustbin.png";
 import square from "./Icons/square.png";
 import triangle from "./Icons/triangle.png";
 import circle from "./Icons/circle.png";
+import selecthand from "./Icons/selecthand.png";
+import text from "./Icons/text.png";
+import downloadIcon from "./Icons/download.png";
 
-//initializing canvas variable
+//initializing canvas variable outside for global scope
 let canvas;
-let arr = [];
 function App() {
   const [brushSize, setBrushSize] = useState(5);
   const [brushColor, setBrushColor] = useState("#5DADE2");
@@ -22,8 +24,10 @@ function App() {
     canvas = new fabric.Canvas("canvas");
     canvas.isDrawingMode = true;
     canvas.freeDrawingBrush.color = brushColor;
+
     canvas.setHeight(window.innerHeight - 100);
     canvas.setWidth(window.innerWidth - 50);
+
     canvas.freeDrawingBrush.width = brushSize;
   }, []);
 
@@ -40,7 +44,7 @@ function App() {
   }, [eraserSize]);
 
   //function to change brush size
-  const handleChange = (e) => {
+  const handleBrushSizeChange = (e) => {
     setBrushSize(e.target.value);
   };
 
@@ -59,7 +63,7 @@ function App() {
         height: 60,
         angle: 90,
         stroke: strokeColor,
-        strokeWidth,
+        strokeWidth
       });
       canvas.add(rect);
     } else if (elementClassName == "triangleShape") {
@@ -70,7 +74,7 @@ function App() {
         width: 60,
         height: 60,
         stroke: strokeColor,
-        strokeWidth,
+        strokeWidth
       });
       canvas.add(rect);
     } else if (elementClassName == "circleShape") {
@@ -80,7 +84,7 @@ function App() {
         radius: 50,
         stroke: strokeColor,
         strokeWidth,
-        fill: "transparent",
+        fill: "transparent"
       });
       canvas.add(rect);
     } else {
@@ -102,7 +106,51 @@ function App() {
     }
   };
 
+  const addTextInput = () => {
+    const textInput = new fabric.Textbox("Enter Text", {
+      left: 100,
+      top: 100,
+      fontFamily: "ubuntu",
+      width: 30,
+      height: 40
+    });
+    canvas.add(textInput);
+    canvas.isDrawingMode = false;
+  };
 
+  const saveData = () => {
+    localStorage.setItem("data1", JSON.stringify(canvas));
+    console.log("data saved");
+  };
+
+  const loadData = () => {
+    const json = localStorage.getItem("data1");
+    canvas.loadFromJSON(json, canvas.renderAll.bind(canvas));
+  };
+
+  const clearSaved = () => {
+    window.localStorage.clear();
+    canvas.clear();
+    console.log("localstorage storage cleared");
+  };
+
+  const download = () => {
+    var dataURL = canvas.toDataURL({
+      format: "jpeg",
+      quality: 0.9
+    });
+    const imageLink = document.createElement("a");
+    if (typeof imageLink.download === "string") {
+      imageLink.href = dataURL;
+      imageLink.download = "canvas.jpg";
+      document.body.appendChild(imageLink);
+      imageLink.click();
+      document.body.removeChild(imageLink);
+    } else {
+      window.open(dataURL);
+    }
+    console.log(dataURL);
+  };
   return (
     <div className="App">
       <div className="toolSection">
@@ -126,7 +174,7 @@ function App() {
               step="5"
               value={brushSize}
               className="slider"
-              onChange={handleChange}
+              onChange={handleBrushSizeChange}
             ></input>
           </div>
 
@@ -174,7 +222,7 @@ function App() {
           </div>
 
           <div className="eraser">
-            <div className="icon">
+            <div className="icon eraserDesc">
               <img
                 src={eraser}
                 alt="eraser-icon"
@@ -201,8 +249,48 @@ function App() {
             </div>
           </div>
 
-          <div class="new" onClick={createNewPage}>
-            New page
+          <div className="selectionHand">
+            <div
+              className="icon"
+              onClick={() => (canvas.isDrawingMode = false)}
+            >
+              <img
+                src={selecthand}
+                alt="select-icon"
+                className="selecthandBtn"
+              />
+            </div>
+          </div>
+
+          <div className="textInput">
+            <div className="icon">
+              <img
+                src={text}
+                alt="textInput-icon"
+                className="textInputBtn"
+                onClick={addTextInput}
+              />
+            </div>
+          </div>
+
+          <div className="download">
+            <div className="icon">
+              <img
+                src={downloadIcon}
+                alt="download-icon"
+                className="downloadBtn"
+                onClick={download}
+              />
+            </div>
+          </div>
+          <div className="save icon" onClick={saveData}>
+            Save
+          </div>
+          <div className="load icon" onClick={loadData}>
+            Load
+          </div>
+          <div className="clearSaved icon" onClick={clearSaved}>
+            Clear Saved
           </div>
 
           <div className="shapesMenuField">

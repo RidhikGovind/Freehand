@@ -3,6 +3,7 @@
   margin: 0;
   box-sizing: border-box;
   transition: 0.2s ease-in all;
+  font-family: "Ubuntu", sans-serif;
 }
 
 body {
@@ -14,7 +15,7 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  /* display: relative; */
+  align-items: center;
 }
 
 .canvasField {
@@ -31,13 +32,10 @@ canvas {
 
 .toolSection {
   display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
 }
 
 .toolField {
-  width: 80%;
+  width: 100%;
   text-align: center;
   display: flex;
   justify-content: space-evenly;
@@ -49,20 +47,12 @@ canvas {
 }
 
 .brushWidth {
-  /* border: 1px solid yellowgreen; */
   display: flex;
   align-items: center;
-  padding: 0.5rem 1rem;
-}
-
-.paintBrushIcon {
-  width: 25px;
-  height: 25px;
-  margin: 5px 7px;
+  padding: 0.5rem 0.3rem;
 }
 
 .colorsets {
-  /* border: 1px solid red; */
   display: flex;
   padding: 0.5rem 1rem;
 }
@@ -81,28 +71,21 @@ canvas {
   transform: scale(1.2);
 }
 
-
 .icon {
   box-shadow: 0px 0px 12px 1px #ccc;
   border-radius: 10px;
   margin-right: 10px;
   cursor: pointer;
+  position: relative;
 }
 .icon:hover {
   transform: scale(1.1);
   box-shadow: -0.5px 1px 4px 3px rgb(0, 0, 0);
 }
+
 .eraser {
-  /* border: 1px solid black; */
   display: flex;
   padding: 0.5rem 1rem;
-}
-
-.eraserIcon {
-  width: 25px;
-  height: 25px;
-
-  margin: 5px 7px;
 }
 
 .eraser .eraserTip {
@@ -128,14 +111,37 @@ canvas {
 
 .circleShape,
 .triangleShape,
-.squareShape {
+.squareShape,
+.selecthandBtn,
+.paintBrushIcon,
+.eraserIcon,
+.textInputBtn,
+.downloadBtn {
   width: 25px;
   height: 25px;
   margin: 5px 7px;
 }
 
+.save,
+.load,
+.clearSaved {
+  padding: 0.6rem 0.5rem;
+}
+
+@media (max-width: 630px) {
+  .toolField > div {
+    padding-top: 0.6rem;
+  }
+}
+
 @media (max-width: 768px) {
   .toolField {
     width: 100%;
+  }
+}
+
+@media (max-width: 1196px) {
+  .toolField {
+    flex-wrap: wrap;
   }
 }
