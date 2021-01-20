@@ -25,7 +25,7 @@
 - Bring the two chrome windows side by side so that each windows content is visible
 - Hit refresh( or F5) on both windows to make it responsive to the current screen size
 - In the 1st chrome window, draw something on the canvas
-- In the 2nd chrome window, press "load" button to load the stored canvas content from firebase database and display it. 
+- In the 2nd chrome window, you can see that the same content of 1st windows is being displayed 
 - Now both screen's are synced at the same time. Have fun scribbling !
 
 ![](screenshot.png)
