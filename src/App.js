@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import "./styles.css";
 
 import { fabric } from "fabric";
+import firebase from "firebase";
+import { db } from "./firebase";
 import paintbrush from "./Icons/paintbrush.png";
 import eraser from "./Icons/eraser.png";
 import dustbin from "./Icons/dustbin.png";
@@ -19,15 +21,17 @@ function App() {
   const [brushColor, setBrushColor] = useState("#5DADE2");
   const [eraserSize, setEraserSize] = useState(10);
   const [strokeColor, setStrokeColor] = useState("#000");
+  const [JSONData, setJSONData] = useState("");
+
+  //creating a firestore reference 
+ const ref = db.collection("canvasData").doc("JSONData");
 
   useEffect(() => {
     canvas = new fabric.Canvas("canvas");
     canvas.isDrawingMode = true;
     canvas.freeDrawingBrush.color = brushColor;
-
     canvas.setHeight(window.innerHeight - 100);
     canvas.setWidth(window.innerWidth - 50);
-
     canvas.freeDrawingBrush.width = brushSize;
   }, []);
 
@@ -42,6 +46,10 @@ function App() {
   useEffect(() => {
     canvas.freeDrawingBrush.width = eraserSize;
   }, [eraserSize]);
+
+  useEffect(() => {
+    saveData();
+  }, [JSONData]);
 
   //function to change brush size
   const handleBrushSizeChange = (e) => {
@@ -63,7 +71,7 @@ function App() {
         height: 60,
         angle: 90,
         stroke: strokeColor,
-        strokeWidth
+        strokeWidth,
       });
       canvas.add(rect);
     } else if (elementClassName == "triangleShape") {
@@ -74,7 +82,7 @@ function App() {
         width: 60,
         height: 60,
         stroke: strokeColor,
-        strokeWidth
+        strokeWidth,
       });
       canvas.add(rect);
     } else if (elementClassName == "circleShape") {
@@ -84,7 +92,7 @@ function App() {
         radius: 50,
         stroke: strokeColor,
         strokeWidth,
-        fill: "transparent"
+        fill: "transparent",
       });
       canvas.add(rect);
     } else {
@@ -112,32 +120,42 @@ function App() {
       top: 100,
       fontFamily: "ubuntu",
       width: 30,
-      height: 40
+      height: 40,
     });
     canvas.add(textInput);
     canvas.isDrawingMode = false;
   };
 
+  //function to upload JSON data from firestore
   const saveData = () => {
-    localStorage.setItem("data1", JSON.stringify(canvas));
-    console.log("data saved");
+    // console.log(JSON.stringify(canvas))
+    setJSONData(JSON.stringify(canvas));
+    ref.set({
+      data: JSONData,
+    });
+    console.log("JSONData saved to Firestore");
   };
 
+  //function to load JSON data from firestore
   const loadData = () => {
-    const json = localStorage.getItem("data1");
-    canvas.loadFromJSON(json, canvas.renderAll.bind(canvas));
+    ref.onSnapshot((snap) => {
+      // console.log(snap.data().data);
+      const JSONFirebase = snap.data().data;
+      canvas.loadFromJSON(JSONFirebase, canvas.renderAll.bind(canvas));
+    });
   };
 
+  //function to delete JSON data from firestore
   const clearSaved = () => {
-    window.localStorage.clear();
-    canvas.clear();
-    console.log("localstorage storage cleared");
+    ref.update({
+      data: firebase.firestore.FieldValue.delete(),
+    });
   };
 
   const download = () => {
     var dataURL = canvas.toDataURL({
       format: "jpeg",
-      quality: 0.9
+      quality: 0.9,
     });
     const imageLink = document.createElement("a");
     if (typeof imageLink.download === "string") {
@@ -149,7 +167,6 @@ function App() {
     } else {
       window.open(dataURL);
     }
-    console.log(dataURL);
   };
   return (
     <div className="App">
