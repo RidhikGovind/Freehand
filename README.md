@@ -1,5 +1,6 @@
 # Freehand
-### An interactive whiteboard made with Fabric.js. 
+### An interactive whiteboard made with Fabric.js.   
+![](screenshot/screenshot.png)
 
 ### Features: 
 - Brush with assorted color options
@@ -28,7 +29,7 @@
 - In the 2nd chrome window, you can see that the same content of 1st windows is being displayed 
 - Now both screen's are synced at the same time. Have fun scribbling !
 
-![](screenshot/screenshot.png)
+
 
 ### Installation guide
 
