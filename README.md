@@ -1,5 +1,5 @@
 # Freehand
-### An collaborative whiteboard made with Fabric.js.   
+### A collaborative whiteboard made with Fabric.js.   
 ![](screenshot/screenshot.png)
 
 ### Features: 
@@ -18,7 +18,7 @@
 * Firebase Hosting
 
 
-## Try it live here: https://freehand-e8cc2.firebaseapp.com/
+## Try it live here: https://freehand-e8cc2.web.app/
 
 
 ### How to test "Freehand" app

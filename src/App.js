@@ -34,12 +34,10 @@ function App() {
     canvas.setWidth(window.innerWidth - 50);
     canvas.freeDrawingBrush.width = brushSize;
 
+    //uploading the canvas object data to firestore and loading the data from firestore on mouse:up
     canvas.on("mouse:up", () => {
-
       console.log("loaded");
-
       setJSONData(JSON.stringify(canvas));
-
       ref.set({
         data: JSONData,
       });
@@ -48,9 +46,7 @@ function App() {
         const JSONFirebase = snap.data().data;
         canvas.loadFromJSON(JSONFirebase, canvas.renderAll.bind(canvas));
       });
-
     });
-
   }, []);
 
   useEffect(() => {
