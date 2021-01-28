@@ -16,6 +16,7 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  position: relative;
 }
 
 .canvasField {
@@ -126,6 +127,10 @@ canvas {
 .load,
 .clearSaved {
   padding: 0.6rem 0.5rem;
+}
+
+.githubIcon:hover {
+  transform: scale(1.1);
 }
 
 @media (max-width: 630px) {

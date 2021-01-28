@@ -13,6 +13,7 @@ import circle from "./Icons/circle.png";
 import selecthand from "./Icons/selecthand.png";
 import text from "./Icons/text.png";
 import downloadIcon from "./Icons/download.png";
+import github from "./Icons/github.png";
 
 //initializing canvas variable outside for global scope
 let canvas;
@@ -315,7 +316,6 @@ function App() {
             </div>
           </div>
 
-          
           <div className="load icon" onClick={loadData}>
             Load
           </div>
@@ -349,6 +349,12 @@ function App() {
                 onClick={(e) => generateShape(e)}
               />
             </div>
+          </div>
+
+          <div className="github">
+            <a href="https://github.com/RidhikGovind/Freehand" target="_blank">
+              <img src={github} alt="github-icon" className="githubIcon" />
+            </a>
           </div>
         </div>
       </div>
