@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Freehand",
+  "name": "freehand whiteboard",
   "icons": [
     {
       "src": "favicon.ico",
