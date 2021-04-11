@@ -3,6 +3,7 @@
   --light-grey-bg: rgba(238, 238, 238, 0.5);
   --light-grey-shadow: #ccc;
   --black: rgb(0, 0, 0);
+  --bl: #17202A;
 }
 
 * {
@@ -35,7 +36,7 @@ body {
 canvas {
   border: 1px solid var(--bright-red);
   border-radius: 10px;
-  box-shadow: 0px 0px 12px 1px #ccc;
+  box-shadow: 0px 0px 12px 1px var(--light-grey-shadow);
 }
 
 .toolSection {
