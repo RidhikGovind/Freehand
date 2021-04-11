@@ -4,6 +4,8 @@ import "./styles.css";
 import { fabric } from "fabric";
 import firebase from "firebase";
 import { db } from "./firebase";
+
+/*Icons */
 import paintbrush from "./Icons/paintbrush.png";
 import eraser from "./Icons/eraser.png";
 import dustbin from "./Icons/dustbin.png";
@@ -18,6 +20,8 @@ import github from "./Icons/github.png";
 //initializing canvas variable outside for global scope
 let canvas;
 function App() {
+
+  /* State required */
   const [brushSize, setBrushSize] = useState(5);
   const [brushColor, setBrushColor] = useState("#5DADE2");
   const [eraserSize, setEraserSize] = useState(10);
@@ -27,6 +31,8 @@ function App() {
   //creating a firestore reference
   const ref = db.collection("canvasData").doc("JSONData");
 
+
+  /*useEffect's needed */ 
   useEffect(() => {
     canvas = new fabric.Canvas("canvas");
     canvas.isDrawingMode = true;
@@ -352,7 +358,7 @@ function App() {
           </div>
 
           <div className="github">
-            <a href="https://github.com/RidhikGovind/Freehand" target="_blank">
+            <a href="https://github.com/RidhikGovind/Freehand" target="_blank" rel="noreferrer">
               <img src={github} alt="github-icon" className="githubIcon" />
             </a>
           </div>
